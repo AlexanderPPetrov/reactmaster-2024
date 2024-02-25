@@ -3,7 +3,7 @@ function StudentsList({ students }) {
     function getStudents() {
         return students.map((student, index) => {
             return <StudentsListItem key={index}
-                                     title={student.firstName}/>
+                                     title={student.title}/>
         })
     }
 

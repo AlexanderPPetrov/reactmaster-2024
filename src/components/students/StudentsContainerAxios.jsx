@@ -1,20 +1,36 @@
 import StudentsList from "./StudentsList.jsx";
-import { useState } from "react";
+import axios from "axios";
+import {useEffect, useState} from "react";
 import SearchInput from "../ui/SearchInput.jsx";
-import { useFetchStudents } from "../hooks/useFetchStudents.js";
-
 function StudentsContainer () {
 
-    const { data } = useFetchStudents()
-
+    const [students, setStudents] = useState([])
     const [searchValue, setSearchValue] = useState('')
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                //Success
+                const { data } = await axios.get(
+                    'https://jsonplaceholder.typicode.com/posts'
+                )
+                const students = data || []
+                setStudents(students)
+            } catch (e) {
+                //Error
+                console.log(e)
+            }
+        }
+        fetchData()
+
+    }, []);
+
 
     function onSearch(value) {
         setSearchValue(value)
     }
 
     function filteredStudents() {
-        const students = data || []
         return students.filter(({ title }) => {
             return title.toLowerCase().includes(searchValue.toLowerCase())
         })
