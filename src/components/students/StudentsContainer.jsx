@@ -2,6 +2,7 @@ import StudentsList from "./StudentsList.jsx";
 import { useState } from "react";
 import SearchInput from "../ui/SearchInput.jsx";
 import { useFetchStudents } from "../hooks/useFetchStudents.js";
+import Card from 'react-bootstrap/Card';
 
 function StudentsContainer () {
 
@@ -21,10 +22,12 @@ function StudentsContainer () {
     }
 
     return (
-        <div>
-            <SearchInput searchValue={searchValue} onSearch={onSearch}/>
-            <StudentsList students={filteredStudents()}/>
-        </div>
+        <Card>
+            <Card.Body>
+                <SearchInput searchValue={searchValue} onSearch={onSearch}/>
+                <StudentsList students={filteredStudents()}/>
+            </Card.Body>
+        </Card>
     )
 }
 

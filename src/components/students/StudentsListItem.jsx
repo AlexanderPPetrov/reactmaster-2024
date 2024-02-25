@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 function StudentsListItem({ title }) {
 
@@ -37,23 +38,32 @@ function StudentsListItem({ title }) {
     return (
         <div className={selected ? 'selected' : ''}>
             {message} { title }
+            <Form>
+                <Form.Group className="mb-3">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control name="address"
+                                  value={studentInfo.address}
+                                  onChange={onStudentInfoChange}/>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Telephone</Form.Label>
+                    <Form.Control name="telephone"
+                                  value={studentInfo.telephone}
+                                  onChange={onStudentInfoChange}/>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Age</Form.Label>
+                    <Form.Control name="age"
+                                  value={studentInfo.age}
+                                  onChange={onStudentInfoChange}/>
+                </Form.Group>
+                <Button variant="primary"
+                        type="button"
+                        onClick={onButtonClick}>
+                    Submit
+                </Button>
+            </Form>
 
-            <input
-                name="address"
-                value={studentInfo.address}
-                onChange={onStudentInfoChange}/>
-            <input
-                name="telephone"
-                value={studentInfo.telephone}
-                onChange={onStudentInfoChange}/>
-            <input
-                name="age"
-                value={studentInfo.age}
-                onChange={onStudentInfoChange}/>
-            <button type="button"
-                    onClick={onButtonClick}>
-                Select
-            </button>
         </div>
     )
 }
