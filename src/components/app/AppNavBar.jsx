@@ -4,8 +4,11 @@ import {
     Nav,
 } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageDropdown from "./LanguageDropdown.jsx";
 
 function AppNavBar() {
+    const { t } = useTranslation()
     return(
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -15,12 +18,18 @@ function AppNavBar() {
                     <Nav className="me-auto">
                         <Nav.Link as={NavLink}
                                   to="/"
-                                  activeclassname={"active"}>Начало</Nav.Link>
+                                  activeclassname={"active"}
+                        >{t('navbar.home')}</Nav.Link>
                         <Nav.Link as={NavLink}
                                   to="/students"
                                   activeclassname={"active"}
-                        >Студенти</Nav.Link>
+                        >{t('navbar.students')}</Nav.Link>
+                        <Nav.Link as={NavLink}
+                                  to="/products"
+                                  activeclassname={"active"}
+                        >{t('navbar.products')}</Nav.Link>
                     </Nav>
+                    <LanguageDropdown/>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
