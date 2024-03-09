@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppRouter from "./AppRouter.jsx";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
@@ -16,6 +15,7 @@ i18n.use(initReactI18next)
 
 
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
