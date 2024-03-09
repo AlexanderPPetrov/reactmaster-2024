@@ -1,20 +1,9 @@
+import AppNavBar from "../components/app/AppNavBar.jsx";
 function DefaultLayout({ leftColumn, rightColumn }) {
 
-    //TODO move nav to a separate component
     return (
-        <div>
-            <nav className="navbar navbar-expand-lg bg-light">
-                <div className="container">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Link</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+        <>
+            <AppNavBar/>
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-md-7">
@@ -25,7 +14,7 @@ function DefaultLayout({ leftColumn, rightColumn }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
