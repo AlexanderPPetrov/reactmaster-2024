@@ -1,15 +1,13 @@
-// import { useState } from "react";
-// import { Form, Button } from "react-bootstrap";
-
 import {Button, Card, CardBody, CardTitle, Image} from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/slices/products.js";
 
 function ProductsListItem({ product }) {
 
-    // const [selected, setSelected] = useState(false)
-    //
-    // function onButtonClick() {
-    //     setSelected(!selected)
-    // }
+    const dispatch = useDispatch()
+    function onButtonClick() {
+        dispatch(addProduct(product))
+    }
 
     return (
         <div className={"col-md-4 mb-3"}>
@@ -32,7 +30,10 @@ function ProductsListItem({ product }) {
                         </span>
                             <span style={{fontSize: "0.75rem"}}>BGN</span>
                         </div>
-                        <Button variant={"outline-success ms-auto"}>Add to Cart</Button>
+                        <Button onClick={onButtonClick}
+                            variant={"outline-success ms-auto"}>
+                            Add to Cart
+                        </Button>
                     </div>
                 </CardBody>
             </Card>

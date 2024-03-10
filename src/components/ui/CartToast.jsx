@@ -1,8 +1,34 @@
-import {Button, Toast} from 'react-bootstrap';
+import { Button, Toast, ListGroup } from 'react-bootstrap';
+import { useSelector, useDispatch } from "react-redux";
+import { CiCircleRemove } from "react-icons/ci";
+import { removeProduct } from "../../redux/slices/products.js";
+
 
 function CartToast() {
-    //TODO should be visible only if there are items in the cart
-    //TODO fix template to match a real Cart
+
+    const dispatch = useDispatch()
+
+    const selectedProducts = useSelector((state) => {
+        return state.products.selectedProducts
+    })
+
+    const onRemoveProduct = (product) => {
+        dispatch(removeProduct(product))
+    }
+
+    //TODO create _cart.scss and move current inline style definitions there
+    const cartProducts = () => {
+        return selectedProducts.map((product, index) => {
+            const key = `${product.id}_${index}`
+            return <ListGroup.Item key={key}>
+                <div className={"d-flex justify-content-between"}>
+                    <span style={{flex: "0 0 80%"}} className={"text-truncate"}>{product.title}</span>
+                    <CiCircleRemove style={{cursor: "pointer"}} size={20} onClick={() => onRemoveProduct(product)}/>
+                </div>
+            </ListGroup.Item>
+        })
+    }
+
     //TODO add logic to toggle drawer navigation (offside)
     return (
         <div style={{
@@ -11,14 +37,20 @@ function CartToast() {
             right: '20px',
             zIndex: 999,
         }}>
-            <Toast show={true} >
+            <Toast show={Boolean(selectedProducts.length)} >
                 <Toast.Header>
                     <strong className="me-auto">Cart</strong>
-                    <small>Items (2)</small>
+                    <small>Items ({selectedProducts.length})</small>
                 </Toast.Header>
                 <Toast.Body>
-                    <span>Мъжки дънки</span>
-                    <Button variant={"outline-success"}>Open Cart</Button>
+                    <ListGroup style={{
+                        paddingRight: "10px",
+                        overflowY: "auto",
+                        maxHeight: "260px",
+                    }}>
+                        { cartProducts()}
+                    </ListGroup>
+                    <Button variant={"outline-success mt-3"}>Open Cart</Button>
                 </Toast.Body>
             </Toast>
         </div>
