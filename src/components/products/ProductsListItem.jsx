@@ -9,6 +9,7 @@ function ProductsListItem({ product }) {
         dispatch(addProduct(product))
     }
 
+    //TODO create price component with props value and size
     return (
         <div className={"col-md-4 mb-3"}>
             <Card className={"h-100"}>
@@ -26,7 +27,7 @@ function ProductsListItem({ product }) {
                         <div className={"d-flex align-items-end"}>
                           <span className={"text-primary fw-bold me-1"}
                                 style={{fontSize: "1.25rem", lineHeight: "1.5rem"}}>
-                          {product.price}
+                          {product.price.toFixed(2)}
                         </span>
                             <span style={{fontSize: "0.75rem"}}>BGN</span>
                         </div>

@@ -1,15 +1,21 @@
-import { useState } from 'react';
 import { Offcanvas } from 'react-bootstrap';
+import { useSelector, useDispatch } from "react-redux";
+import { setDrawerOpened } from "../../redux/slices/application.js";
 
 function AppDrawer() {
 
-    //Drawer state (shown or not shown)
-    //TODO react state from redux (store)
-    const [show, setShow] = useState(true)
-    const handleClose = () => setShow(false);
+    const dispatch = useDispatch()
+
+    const drawerOpened = useSelector( state => {
+        return state.application.drawerOpened
+    })
+
+    const handleClose = () => {
+        dispatch(setDrawerOpened(false))
+    };
 
     return(
-        <Offcanvas show={show}
+        <Offcanvas show={drawerOpened}
                    onHide={handleClose}
                    placement={"end"}>
             <Offcanvas.Header closeButton>
