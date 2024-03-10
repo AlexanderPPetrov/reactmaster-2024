@@ -1,8 +1,9 @@
 import { Button, Toast, ListGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux";
 import { CiCircleRemove } from "react-icons/ci";
-import { removeProduct } from "../../redux/slices/products.js";
+import {decrementQuantity, incrementQuantity, removeProduct} from "../../redux/slices/products.js";
 import {setDrawerOpened} from "../../redux/slices/application.js";
+import QuantityInput from "./QuantityInput.jsx";
 
 
 function CartToast() {
@@ -17,39 +18,36 @@ function CartToast() {
         dispatch(removeProduct(product))
     }
 
-    const getUniqueProducts = () => {
-        const uniqueProducts = []
-        selectedProducts.forEach(product => {
-            const matchedProduct = uniqueProducts.find(({id})=> {
-                return id === product.id
-            })
-
-            if(!matchedProduct) {
-                uniqueProducts.push({...product, count: 1})
-            } else {
-                matchedProduct.count = matchedProduct.count + 1
-            }
-        })
-
-        return uniqueProducts
-    }
 
     function getTotalPrice() {
         const total =  selectedProducts.reduce((acc, product) => {
-            return acc + product.price
+            return acc + (product.price * product.quantity)
         }, 0)
         return total.toFixed(2)
     }
 
+    const onIncrement = (product) => {
+        dispatch(incrementQuantity(product))
+    }
+    const onDecrement = (product) => {
+        dispatch(decrementQuantity(product))
+    }
+
     //TODO create _cart.scss and move current inline style definitions there
     const cartProducts = () => {
-        return getUniqueProducts().map((product) => {
+        return selectedProducts.map((product) => {
             return <ListGroup.Item key={product.id}>
                 <div className={"d-flex justify-content-between"}>
-                    <span style={{flex: "0 0 80%"}} className={"text-truncate"}>
-                        <strong>({product.count}) </strong>
-                        {product.title}
-                    </span>
+                    <div className={"d-flex align-items-center"}>
+                        <QuantityInput value={product.quantity}
+                                       size={"sm"}
+                                       onIncrement={() => onIncrement(product)}
+                                       onDecrement={() => onDecrement(product)}
+                        />
+                        <span className={"ms-1 text-truncate"} style={{maxWidth: "150px"}}>
+                            {product.title}
+                        </span>
+                    </div>
                     <CiCircleRemove style={{cursor: "pointer"}} size={20} onClick={() => onRemoveProduct(product)}/>
                 </div>
             </ListGroup.Item>
